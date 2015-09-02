@@ -8,12 +8,13 @@
 # [*ensure*]
 #   Status of the exported resource. Valid values 'present' (default) and 
 #   'absent'.
+#
 class nodeinfo::export
 (
     $ensure='present'
 )
 {
-    include os::params
+    include ::os::params
 
     # These local "facts" get set to the real fact value or nil, so that the ERB 
     # templating engine does not choke when a fact is missing.
@@ -21,16 +22,19 @@ class nodeinfo::export
     $l_security_updates = $::security_updates
     $l_reboot_required = $::reboot_required
 
-    # This comes from the "policy" module
-    $admin = $::nodeinfo::admin
+    # This top-scope variable needs to be defined in Hiera
+    $admin = $::admin ? {
+        undef   => 'unknown',
+        default => $::admin,
+    }
 
     @@concat::fragment { "nodeinfo-fragment-${::fqdn}":
-        ensure => $ensure,
-        target => 'nodeinfo-nodes.html',
+        ensure  => $ensure,
+        target  => 'nodeinfo-nodes.html',
         content => template('nodeinfo/fragment.erb'),
-        owner => $::os::params::adminuser,
-        group => $::os::params::admingroup,
-        mode => 644,
-        tag => 'nodeinfo-export-fragment',
+        owner   => $::os::params::adminuser,
+        group   => $::os::params::admingroup,
+        mode    => 644,
+        tag     => 'nodeinfo-export-fragment',
     }
 }

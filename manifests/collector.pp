@@ -16,55 +16,55 @@ class nodeinfo::collector
     $basedir = '/var/www/nodeinfo'
 )
 {
-    include os::params
+    include ::os::params
 
-    file { "nodeinfo-basedir":
+    file { 'nodeinfo-basedir':
         ensure => directory,
-        name => $basedir,
-        owner => $::os::params::adminuser,
-        group => $::os::params::admingroup,
-        mode => $mode,
+        name   => $basedir,
+        owner  => $::os::params::adminuser,
+        group  => $::os::params::admingroup,
+        mode   => '0755',
     }
 
     concat { 'nodeinfo-nodes.html':
-        path => "${basedir}/index.html",
-        ensure => present,
-        owner => $::os::params::adminuser,
-        group => $::os::params::admingroup,
-        mode => 644,
-        warn => true,
-        order => alpha,
+        ensure         => present,
+        path           => "${basedir}/index.html",
+        owner          => $::os::params::adminuser,
+        group          => $::os::params::admingroup,
+        mode           => 644,
+        warn           => true,
+        order          => alpha,
         ensure_newline => true,
     }
 
-    concat::fragment { "nodeinfo-header":
-        target => 'nodeinfo-nodes.html',
+    concat::fragment { 'nodeinfo-header':
+        target  => 'nodeinfo-nodes.html',
         content => template('nodeinfo/header.erb'),
-        owner => $::os::params::adminuser,
-        group => $::os::params::admingroup,
-        mode => 644,
-        order => '01',
+        owner   => $::os::params::adminuser,
+        group   => $::os::params::admingroup,
+        mode    => 644,
+        order   => '01',
     }
 
-    concat::fragment { "nodeinfo-footer":
-        target => 'nodeinfo-nodes.html',
+    concat::fragment { 'nodeinfo-footer':
+        target  => 'nodeinfo-nodes.html',
         content => template('nodeinfo/footer.erb'),
-        owner => $::os::params::adminuser,
-        group => $::os::params::admingroup,
-        mode => 644,
-        order => '99',
+        owner   => $::os::params::adminuser,
+        group   => $::os::params::admingroup,
+        mode    => 644,
+        order   => '99',
     }
 
     Concat::Fragment <<| tag == 'nodeinfo-export-fragment' |>>
 
     # Style sheet
     file { 'nodeinfo-nodeinfo.css':
-        name => "${basedir}/nodeinfo.css",
-        ensure => present,
+        ensure  => present,
+        name    => "${basedir}/nodeinfo.css",
         content => template('nodeinfo/nodeinfo.css.erb'),
-        owner => $::os::params::adminuser,
-        group => $::os::params::admingroup,
-        mode => 644,
+        owner   => $::os::params::adminuser,
+        group   => $::os::params::admingroup,
+        mode    => '0644',
     }
 
 }
