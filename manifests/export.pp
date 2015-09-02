@@ -3,6 +3,9 @@
 #
 # Export this node's information for nodes that include nodeinfo::collector.
 #
+# Note that this class generates the column data based on the
+# $::nodeinfo::variable_names parameter.
+#
 # == Parameters
 #
 # [*ensure*]
@@ -15,18 +18,9 @@ class nodeinfo::export
 )
 {
     include ::os::params
+    include ::nodeinfo
 
-    # These local "facts" get set to the real fact value or nil, so that the ERB 
-    # templating engine does not choke when a fact is missing.
-    $l_updates = $::updates
-    $l_security_updates = $::security_updates
-    $l_reboot_required = $::reboot_required
-
-    # This top-scope variable needs to be defined in Hiera
-    $admin = $::admin ? {
-        undef   => 'unknown',
-        default => $::admin,
-    }
+    $variable_names = $::nodeinfo::variable_names
 
     @@concat::fragment { "nodeinfo-fragment-${::fqdn}":
         ensure  => $ensure,

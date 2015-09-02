@@ -4,6 +4,9 @@
 # This class collects the HTML fragments from the other nodes and publishes them 
 # as a webpage.
 #
+# Note that this class generates the column data based on the 
+# $::nodeinfo::variable_names parameter.
+#
 # == Parameters
 #
 # [*basedir*]
@@ -17,6 +20,9 @@ class nodeinfo::collector
 )
 {
     include ::os::params
+    include ::nodeinfo
+
+    $variable_names = $::nodeinfo::variable_names
 
     file { 'nodeinfo-basedir':
         ensure => directory,
@@ -44,6 +50,8 @@ class nodeinfo::collector
         group   => $::os::params::admingroup,
         mode    => 644,
         order   => '01',
+        # We need the list of variables from the main class
+        require => Class['nodeinfo']
     }
 
     concat::fragment { 'nodeinfo-footer':

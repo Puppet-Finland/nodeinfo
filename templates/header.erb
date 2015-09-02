@@ -9,18 +9,7 @@
 <body>
 <article>
 <table>
+    <!-- Headers and cell data are both dynamically from the $::nodeinfo::variable_names array -->
     <tr>
-        <th>FQDN</th>
-        <th>Arch</th>
-        <th>OS</th>
-        <th>CPUs</th>
-        <th>Mem</th>
-        <th>Virtual</th>
-        <th>Primary IP</th>
-        <th>TZ</th>
-        <th>Upd.</th>
-        <th>S.upd.</th>
-        <th>Reboot</th>
-        <th>Admin</th>
-        <th>Uptime</th>
+        <% variable_names.each do |val| -%><th><%= val %></th><% end -%>
     </tr>

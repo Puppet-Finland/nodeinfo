@@ -6,8 +6,17 @@
 #
 # == Parameters
 #
+# [*variable_names*]
+#   An array of variable _names_ to add to the nodeinfo page. A default value is 
+#   provided, but it's intended primarily for testing this module:
+#
+#   ['fqdn', 'architecture', 'processorcount', 'memorysize', 'timezone']
+#
+#   The variables need to be top-scope, but can be obtained from any source, e.g.
+#   facts, Hiera or site.pp.
 # [*admin*]
-#   Administrator name. Defaults to top-scope variable $::serveradmin
+#   Administrator name/email/whatever. Defaults to top-scope variable 
+#   $::serveradmin.
 #
 # == Authors
 #
@@ -21,6 +30,7 @@
 #
 class nodeinfo
 (
+    $variable_names = ['fqdn', 'architecture', 'processorcount', 'memorysize', 'timezone'],
     $admin = $::serveradmin
 )
 {
