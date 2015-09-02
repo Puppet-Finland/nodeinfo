@@ -1,6 +1,13 @@
 # nodeinfo
 
-A simple Puppet module that maintains an inventory page of Puppet-managed nodes
+A simple Puppet module that maintains an inventory page of Puppet-managed nodes. 
+This module makes use of an external script, 
+[sorttable.js](http://kryogenix.org/code/browser/sorttable), to enable table 
+sorting.
+
+The Puppet code and ERB templates in this module are licensed under the BSD 
+license (see file LICENSE). The sorttable.js script is licensed under the MIT 
+license (see file LICENSE.MIT).
 
 # Module usage
 

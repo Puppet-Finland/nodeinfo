@@ -24,12 +24,25 @@ class nodeinfo::collector
 
     $variable_names = $::nodeinfo::variable_names
 
+    File {
+        owner  => $::os::params::adminuser,
+        group  => $::os::params::admingroup,
+    }
+
+    # Base directory for nodeinfo files
     file { 'nodeinfo-basedir':
         ensure => directory,
         name   => $basedir,
-        owner  => $::os::params::adminuser,
-        group  => $::os::params::admingroup,
         mode   => '0755',
+    }
+
+    # This file is from <http://kryogenix.org/code/browser/sorttable> and is
+    # licensed under the MIT license.
+    file { 'nodeinfo-sorttable.js':
+        ensure  => present,
+        name    => "${basedir}/sorttable.js",
+        content => template('nodeinfo/sorttable.js.erb'),
+        require => File['nodeinfo-basedir'],
     }
 
     concat { 'nodeinfo-nodes.html':
@@ -64,8 +77,6 @@ class nodeinfo::collector
         ensure  => present,
         name    => "${basedir}/nodeinfo.css",
         content => template('nodeinfo/nodeinfo.css.erb'),
-        owner   => $::os::params::adminuser,
-        group   => $::os::params::admingroup,
         mode    => '0644',
     }
 

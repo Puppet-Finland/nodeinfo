@@ -5,10 +5,11 @@
 <meta charset="UTF-8">
 <meta name="description" content="Basic information about nodes managed by Puppet">
 <link rel="stylesheet" type="text/css" href="nodeinfo.css">
+<script src="sorttable.js"></script>
 </head>
 <body>
 <article>
-<table>
+<table class="sortable">
     <!-- Headers and cell data are both dynamically from the $::nodeinfo::variable_names array -->
     <tr>
         <% variable_names.each do |val| -%><th><%= val %></th><% end -%>
