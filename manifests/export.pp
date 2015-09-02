@@ -26,9 +26,6 @@ class nodeinfo::export
         ensure  => $ensure,
         target  => 'nodeinfo-nodes.html',
         content => template('nodeinfo/fragment.erb'),
-        owner   => $::os::params::adminuser,
-        group   => $::os::params::admingroup,
-        mode    => 644,
         tag     => 'nodeinfo-export-fragment',
     }
 }

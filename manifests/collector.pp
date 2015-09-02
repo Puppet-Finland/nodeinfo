@@ -46,9 +46,6 @@ class nodeinfo::collector
     concat::fragment { 'nodeinfo-header':
         target  => 'nodeinfo-nodes.html',
         content => template('nodeinfo/header.erb'),
-        owner   => $::os::params::adminuser,
-        group   => $::os::params::admingroup,
-        mode    => 644,
         order   => '01',
         # We need the list of variables from the main class
         require => Class['nodeinfo']
@@ -57,9 +54,6 @@ class nodeinfo::collector
     concat::fragment { 'nodeinfo-footer':
         target  => 'nodeinfo-nodes.html',
         content => template('nodeinfo/footer.erb'),
-        owner   => $::os::params::adminuser,
-        group   => $::os::params::admingroup,
-        mode    => 644,
         order   => '99',
     }
 
