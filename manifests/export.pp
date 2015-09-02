@@ -4,7 +4,7 @@
 # Export this node's information for nodes that include nodeinfo::collector.
 #
 # Note that this class generates the column data based on the
-# $::nodeinfo::variable_names parameter.
+# $::nodeinfo::variables parameter.
 #
 # == Parameters
 #
@@ -20,7 +20,7 @@ class nodeinfo::export
     include ::os::params
     include ::nodeinfo
 
-    $variable_names = $::nodeinfo::variable_names
+    $variables = $::nodeinfo::variables
 
     @@concat::fragment { "nodeinfo-fragment-${::fqdn}":
         ensure  => $ensure,

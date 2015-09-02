@@ -5,7 +5,7 @@
 # as a webpage.
 #
 # Note that this class generates the column data based on the 
-# $::nodeinfo::variable_names parameter.
+# $::nodeinfo::variables parameter.
 #
 # == Parameters
 #
@@ -22,7 +22,7 @@ class nodeinfo::collector
     include ::os::params
     include ::nodeinfo
 
-    $variable_names = $::nodeinfo::variable_names
+    $variables = $::nodeinfo::variables
 
     File {
         owner  => $::os::params::adminuser,

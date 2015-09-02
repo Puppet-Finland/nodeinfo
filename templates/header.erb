@@ -10,7 +10,11 @@
 <body>
 <article>
 <table class="sortable">
-    <!-- Headers and cell data are both dynamically from the $::nodeinfo::variable_names array -->
+    <!-- Headers and cell data are both dynamically from the hashes stored in the $::nodeinfo::variables array -->
     <tr>
-        <% variable_names.each do |val| -%><th><%= val %></th><% end -%>
+        <% variables.each do |var| -%>
+            <% var.each_pair do |key, value| %>
+                <th><%= value %></th>
+            <% end %>
+        <% end %>
     </tr>
