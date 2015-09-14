@@ -1,5 +1,5 @@
     <tr>
-        <% variables.each do |var| -%>
+        <% @variables.each do |var| -%>
             <% var.each_pair do |key, value| -%>
                 <td><%= scope[key] %></td>
             <% end %>

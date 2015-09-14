@@ -12,7 +12,7 @@
 <table class="sortable">
     <!-- Headers and cell data are both dynamically from the hashes stored in the $::nodeinfo::variables array -->
     <tr>
-        <% variables.each do |var| -%>
+        <% @variables.each do |var| -%>
             <% var.each_pair do |key, value| %>
                 <th><%= value %></th>
             <% end %>
