@@ -50,7 +50,7 @@ class nodeinfo::collector
         path           => "${basedir}/index.html",
         owner          => $::os::params::adminuser,
         group          => $::os::params::admingroup,
-        mode           => 644,
+        mode           => '0644',
         warn           => true,
         order          => alpha,
         ensure_newline => true,
